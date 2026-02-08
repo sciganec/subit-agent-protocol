@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SUBIT State",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 63,
+      "description": "6-bit technical state representing active operational phases"
+    }
+  },
+  "required": ["value"]
+}
