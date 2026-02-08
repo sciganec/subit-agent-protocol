@@ -1,0 +1,10 @@
+{
+  "trajectory": [
+    { "value": 37 },
+    { "value": 41 },
+    { "value": 9 },
+    { "value": 1 },
+    { "value": 13 }
+  ],
+  "description": "Sample SUBIT‑64 state evolution used for demonstration and testing."
+}
