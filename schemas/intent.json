@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SUBIT Intent",
+  "type": "object",
+  "properties": {
+    "state": {
+      "$ref": "state.json",
+      "description": "Current 6-bit SUBIT state associated with the intent"
+    },
+    "goal": {
+      "type": "string",
+      "description": "High-level objective the agent intends to pursue"
+    }
+  },
+  "required": ["state", "goal"]
+}
