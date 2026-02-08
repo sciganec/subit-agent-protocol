@@ -4,177 +4,106 @@
 ![Language](https://img.shields.io/badge/lang-Python%20%7C%20TypeScript-green)
 ![Status](https://img.shields.io/badge/status-stable-brightgreen)
 
-SUBIT‑64 is a minimal 6‑bit protocol for deterministic agent control. It defines a compact state model, a strict transition layer, and canonical JSON schemas that make agent behavior transparent, interoperable, and implementation‑agnostic.
+SUBIT‑64 is a compact six‑axis bit protocol for representing semantic states, transitions, and deterministic system behavior.  
+Each state is a 6‑bit integer from 0 to 63.  
+Each axis corresponds to a single bit: **A, B, C, D, E, F**.
+
+The Python SDK provides canonical encoding, decoding, and a deterministic finite‑state machine.
 
 ---
 
-## Overview
+## Python SDK
 
-SUBIT‑64 models an agent using six binary phases:
+### Installation
 
-- A — Perception  
-- B — Evaluation  
-- C — Intention  
-- D — Planning  
-- E — Action  
-- F — Feedback  
-
-Each phase is one bit. Combined, they form a 6‑bit integer from 0 to 63.  
-This representation enables deterministic control loops, transparent debugging, and cross‑platform consistency.
-
----
-
-## State Model
-
-A SUBIT state is defined as:
-
-value = F E D C B A (binary)
-
-Examples:
-
-- 0 → 000000  
-- 5 → 000101  
-- 63 → 111111  
-
-The full state space contains 64 configurations.
-
----
-
-## Encoding and Decoding
-
-Encoding converts phase flags into a 6‑bit integer.  
-Decoding performs the inverse.
-
-Example:
-
-A=1, B=0, C=1, D=0, E=0, F=1  
-→ 100101₂ → 37
-
----
-
-## FSM Layer
-
-The finite state machine defines deterministic transitions:
-
-(state, event) → next_state
-
-Undefined transitions return the current state to ensure predictable evolution.
-
----
-
-## SDK
-
-SUBIT‑64 includes minimal Python and TypeScript SDKs that expose a unified public API for encoding, decoding, and deterministic state transitions.
-
-### Python
-
-```
-pip install subit64
-```
-
-API:
+The SDK has no external dependencies. Import directly from the repository:
 
 ```python
 from subit64 import encode, decode, FSM
+```
 
-value = encode({"A":1, "B":0, "C":1, "D":0, "E":0, "F":1})
-axes = decode(value)
+---
 
+## Encoding
+
+```python
+value = encode({"A": 1, "B": 0, "C": 1, "D": 0, "E": 0, "F": 1})
+print(value)  # 37
+```
+
+---
+
+## Decoding
+
+```python
+axes = decode(37)
+print(axes)
+# {'A': 1, 'B': 0, 'C': 1, 'D': 0, 'E': 0, 'F': 1}
+```
+
+---
+
+## Finite State Machine
+
+The FSM maps a current state and event to a next state.
+
+```python
 fsm = FSM({37: {"act": 41}})
-next_state = fsm.next(value, "act")
+next_state = fsm.next(37, "act")
+print(next_state)  # 41
 ```
 
-Structure:
+If a transition is undefined, the FSM returns the current state.
+
+---
+
+## Repository Structure
 
 ```
-subit64/
-  __init__.py
-  encoder.py
-  decoder.py
-  fsm.py
-  types.py
-```
-
-### TypeScript
-
-```
-npm install subit64
-```
-
-API:
-
-```ts
-import { encode, decode, FSM } from "subit64";
-
-const value = encode({ A:1, B:0, C:1, D:0, E:0, F:1 });
-const axes = decode(value);
-
-const fsm = new FSM({ 37: { act: 41 } });
-const nextState = fsm.next(value, "act");
-```
-
-Structure:
-
-```
-subit64/
-  index.ts
-  encoder.ts
-  decoder.ts
-  fsm.ts
-  types.ts
+subit-agent-protocol/
+│
+├── subit64/          # Python SDK
+│   ├── __init__.py
+│   ├── encoder.py
+│   ├── decoder.py
+│   ├── fsm.py
+│   └── types.py
+│
+├── schemas/          # JSON schemas
+├── examples/         # Python examples
+├── docs/             # Documentation
+├── test_sdk.py       # Smoke test
+├── README.md
+└── CHANGELOG.md
 ```
 
 ---
 
-## Directory Structure
+## JSON Schemas
+
+The `schemas/` directory contains the official protocol schemas:
+
+- `state.schema.json`
+- `event.schema.json`
+- `transition.schema.json`
+
+These ensure compatibility across implementations.
+
+---
+
+## Testing
+
+Run the smoke test:
 
 ```
-src/
-  encoder.py
-  encoder.ts
-  decoder.py
-  decoder.ts
-  fsm.py
-  fsm.ts
-
-schemas/
-  state.json
-  intent.json
-  action.json
-  trajectory.json
-
-docs/
-  protocol.md
-  states.md
-  fsm.md
-  examples.md
-  glossary.md
-
-examples/
-  python/
-    basic_cycle.py
-  typescript/
-    basic_cycle.ts
-  json/
-    sample_trajectory.json
-
-mvp.py
-mvp.ts
+python3 test_sdk.py
 ```
 
 ---
 
-## Use Cases
+## License
 
-- LLM‑based agents  
-- planning and reasoning systems  
-- robotics control loops  
-- reinforcement learning agents  
-- multi‑agent coordination  
-
-SUBIT‑64 provides a minimal, interpretable, and deterministic backbone for agent state management.
-
----
+MIT.
 
 ## Version
 
