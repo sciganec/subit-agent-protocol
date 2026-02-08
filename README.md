@@ -4,9 +4,7 @@
 ![Language](https://img.shields.io/badge/lang-Python%20%7C%20TypeScript-green)
 ![Status](https://img.shields.io/badge/status-stable-brightgreen)
 
-SUBIT‑64 is a minimal, deterministic 6‑bit control protocol for AI agents.  
-It defines how an agent represents its internal operational phases, transitions between them, and serializes its behavior across systems.  
-The protocol is language‑agnostic and includes reference implementations in Python and TypeScript.
+SUBIT‑64 is a minimal 6‑bit protocol for deterministic agent control. It defines a compact state model, a strict transition layer, and canonical JSON schemas that make agent behavior transparent, interoperable, and implementation‑agnostic.
 
 ---
 
@@ -14,17 +12,15 @@ The protocol is language‑agnostic and includes reference implementations in Py
 
 SUBIT‑64 models an agent using six binary phases:
 
-- A — Perception  
-- B — Evaluation  
-- C — Intention  
-- D — Planning  
-- E — Action  
-- F — Feedback  
+- **A** — Perception  
+- **B** — Evaluation  
+- **C** — Intention  
+- **D** — Planning  
+- **E** — Action  
+- **F** — Feedback  
 
-Each phase is a single bit.  
-Together they form a 6‑bit integer from 0 to 63.
-
-This compact representation enables deterministic control loops, transparent debugging, and cross‑platform interoperability.
+Each phase is one bit. Combined, they form a 6‑bit integer from 0 to 63.  
+This representation enables deterministic control loops, transparent debugging, and cross‑platform consistency.
 
 ---
 
@@ -42,7 +38,7 @@ Examples:
 
 The full state space contains 64 configurations.
 
-Reference files:
+Reference implementations:
 
 - `encoder.py` / `encoder.ts`  
 - `decoder.py` / `decoder.ts`  
@@ -54,8 +50,6 @@ Reference files:
 
 Encoding converts phase flags into a 6‑bit integer.  
 Decoding performs the inverse.
-
-Python and TypeScript implementations are included in `src/`.
 
 Example:
 
@@ -70,8 +64,7 @@ The finite state machine defines deterministic transitions:
 
 (state, event) → next_state
 
-Undefined transitions return the current state.  
-This ensures predictable evolution of agent behavior.
+Undefined transitions return the current state to ensure predictable evolution.
 
 Reference files:
 
@@ -116,6 +109,17 @@ docs/
   fsm.md
   examples.md
   glossary.md
+
+examples/
+  python/
+    basic_cycle.py
+  typescript/
+    basic_cycle.ts
+  json/
+    sample_trajectory.json
+
+mvp.py
+mvp.ts
 ```
 
 ---
@@ -134,5 +138,5 @@ SUBIT‑64 provides a minimal, interpretable, and deterministic backbone for age
 
 ## Version
 
-Protocol version: 1.0  
-Status: stable
+Protocol version: 1.1  
+Status: active development
