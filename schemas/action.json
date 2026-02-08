@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SUBIT Action",
+  "type": "object",
+  "properties": {
+    "intent": {
+      "$ref": "intent.json",
+      "description": "Intent associated with the action, including state and goal"
+    },
+    "command": {
+      "type": "string",
+      "description": "Executable operation derived from the intent"
+    }
+  },
+  "required": ["intent", "command"]
+}
