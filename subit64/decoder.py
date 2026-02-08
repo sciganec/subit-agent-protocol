@@ -1,3 +1,5 @@
+from typing import Dict
+
 def decode(value: int) -> Dict[str, int]:
     return {
         "A": (value >> 0) & 1,
