@@ -1,8 +1,9 @@
 # SUBIT‑64 Protocol
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![Spec](https://img.shields.io/badge/spec-6--bit%20protocol-black)
-![Language](https://img.shields.io/badge/lang-Python%20%7C%20TypeScript-green)
-![Status](https://img.shields.io/badge/status-stable-brightgreen)
+![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)
+![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Status](https://img.shields.io/badge/status-stable-brightgreen.svg)
+![Protocol](https://img.shields.io/badge/protocol-SUBIT--64-black.svg)
 
 SUBIT‑64 is a compact six‑axis bit protocol for representing semantic states, transitions, and deterministic system behavior.  
 Each state is a 6‑bit integer from 0 to 63.  
