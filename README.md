@@ -1,4 +1,8 @@
 # SUBIT‑64 Protocol
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Spec](https://img.shields.io/badge/spec-6--bit%20protocol-black)
+![Language](https://img.shields.io/badge/lang-Python%20%7C%20TypeScript-green)
+![Status](https://img.shields.io/badge/status-stable-brightgreen)
 
 SUBIT‑64 is a minimal, deterministic 6‑bit control protocol for AI agents.  
 It defines how an agent represents its internal operational phases, transitions between them, and serializes its behavior across systems.  
