@@ -1,4 +1,4 @@
-from subit64 import encode, decode, FSM
+from subit64-python import encode, decode, FSM
 
 value = encode({"A":1, "B":0, "C":1, "D":0, "E":0, "F":1})
 print("Encoded:", value)
