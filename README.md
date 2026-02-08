@@ -12,12 +12,12 @@ SUBIT‑64 is a minimal 6‑bit protocol for deterministic agent control. It def
 
 SUBIT‑64 models an agent using six binary phases:
 
-- **A** — Perception  
-- **B** — Evaluation  
-- **C** — Intention  
-- **D** — Planning  
-- **E** — Action  
-- **F** — Feedback  
+- A — Perception  
+- B — Evaluation  
+- C — Intention  
+- D — Planning  
+- E — Action  
+- F — Feedback  
 
 Each phase is one bit. Combined, they form a 6‑bit integer from 0 to 63.  
 This representation enables deterministic control loops, transparent debugging, and cross‑platform consistency.
@@ -32,17 +32,11 @@ value = F E D C B A (binary)
 
 Examples:
 
-- 0 → 000000 → no phases active  
-- 5 → 000101 → Perception + Intention  
-- 63 → 111111 → all phases active  
+- 0 → 000000  
+- 5 → 000101  
+- 63 → 111111  
 
 The full state space contains 64 configurations.
-
-Reference implementations:
-
-- `encoder.py` / `encoder.ts`  
-- `decoder.py` / `decoder.ts`  
-- `state.json`
 
 ---
 
@@ -66,23 +60,69 @@ The finite state machine defines deterministic transitions:
 
 Undefined transitions return the current state to ensure predictable evolution.
 
-Reference files:
-
-- `fsm.py` / `fsm.ts`  
-- `trajectory.json`
-
 ---
 
-## Schemas
+## SDK
 
-Canonical JSON schemas ensure consistent serialization:
+SUBIT‑64 includes minimal Python and TypeScript SDKs that expose a unified public API for encoding, decoding, and deterministic state transitions.
 
-- `state.json` — 6‑bit state  
-- `intent.json` — state + goal  
-- `action.json` — intent + command  
-- `trajectory.json` — sequence of states  
+### Python
 
-These schemas allow SUBIT‑64 to integrate cleanly with external systems, logs, and agent frameworks.
+```
+pip install subit64
+```
+
+API:
+
+```python
+from subit64 import encode, decode, FSM
+
+value = encode({"A":1, "B":0, "C":1, "D":0, "E":0, "F":1})
+axes = decode(value)
+
+fsm = FSM({37: {"act": 41}})
+next_state = fsm.next(value, "act")
+```
+
+Structure:
+
+```
+subit64/
+  __init__.py
+  encoder.py
+  decoder.py
+  fsm.py
+  types.py
+```
+
+### TypeScript
+
+```
+npm install subit64
+```
+
+API:
+
+```ts
+import { encode, decode, FSM } from "subit64";
+
+const value = encode({ A:1, B:0, C:1, D:0, E:0, F:1 });
+const axes = decode(value);
+
+const fsm = new FSM({ 37: { act: 41 } });
+const nextState = fsm.next(value, "act");
+```
+
+Structure:
+
+```
+subit64/
+  index.ts
+  encoder.ts
+  decoder.ts
+  fsm.ts
+  types.ts
+```
 
 ---
 
@@ -140,3 +180,4 @@ SUBIT‑64 provides a minimal, interpretable, and deterministic backbone for age
 
 Protocol version: 1.1  
 Status: active development
+
