@@ -1,3 +1,5 @@
+from typing import Dict
+
 def encode(axes: Dict[str, int]) -> int:
     bits = [
         axes.get("A", 0),
